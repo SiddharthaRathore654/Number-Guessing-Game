@@ -1,0 +1,55 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class InternTask_1 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        int minRange = 1;
+        int maxRange = 100;
+        int attemptsLimit = 6;
+        int score = 0;
+
+        System.out.println("Welcome To The Number Guessing Game!");
+        System.out.println("You Have To Guess A Number Between " + minRange + " And " +maxRange+ ",");
+        System.out.println("You Have " + attemptsLimit + " attempt Per Round");
+
+        boolean playAgain = true;
+
+        while (playAgain) {
+            int targetNumber = random.nextInt(maxRange - minRange + 1) + minRange;
+            int attempts = 0;
+            boolean guessedCorrectly = false;
+
+            while (attempts < attemptsLimit) {
+                System.out.print("Enter Your Guess: ");
+                int guess = scanner.nextInt();
+                attempts++;
+
+                if (guess == targetNumber) {
+                    System.out.println("Congratulations! You Guessed The Correct Number (" + targetNumber + ") In " + attempts + " Attempts");
+                    guessedCorrectly = true;
+                    score++;
+                    break;
+                } else if (guess < targetNumber) {
+                    System.out.println("Too Low! Try Again.");
+                } else {
+                    System.out.println("Too High! Try Again.");
+                }
+
+                if (attempts == attemptsLimit) {
+                    System.out.println("Sorry, you've used all your attempts. The correct number was: " + targetNumber);
+                }
+            }
+
+            System.out.print("\n Do You Want To Play Again? (Yes/No): ");
+            String playAgainResponse = scanner.next();
+            playAgain = playAgainResponse.equalsIgnoreCase("yes");
+        }
+
+        System.out.println("Your Final Score: " + score);
+        System.out.println("Thanks For Playing!");
+        scanner.close();
+    }
+}
